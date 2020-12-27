@@ -1,0 +1,26 @@
+﻿@model CreateViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Subir nuevo articulo</h1>
+</div>
+<form asp-action="create" method="post" enctype="multipart/form-data">
+    <div class="form-control">
+        <label asp-for="Title">Titulo</label>
+        <input type="text" asp-for="Title"/>
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="Body">Body</label>
+        <textarea asp-for="Body"></textarea>
+        <span asp-validation-for="Body"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="PhotoLink">Titulo</label>
+        <input type="file" asp-for="PhotoLink" />
+        <span asp-validation-for="PhotoLink"></span>
+    </div>
+    <button class="btn btn-success" type="submit">Guardar</button>
+</form>
