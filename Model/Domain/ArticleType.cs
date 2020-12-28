@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Model.Domain
 {
-    public class Type
+    public class ArticleType
     {
-        public Type()
+        public ArticleType()
         {
             ArticleNavigations = new List<Article>();
         }

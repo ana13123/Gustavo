@@ -10,7 +10,7 @@ namespace Model
         {
 
         }
-        public DbSet<Type> Types { get; set; }
+        public DbSet<ArticleType> ArticleTypes { get; set; }
         public DbSet<Article> Articles { get; set; }
 
     }

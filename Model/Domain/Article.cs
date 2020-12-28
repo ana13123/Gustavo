@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Model.Domain
@@ -8,15 +9,15 @@ namespace Model.Domain
     {
         public Article()
         {
-            TypeNavigation = new Type();
         }
 
         public int Id { get; set; }
+        [Display(Name = "Titulo")]
         public string Title { get; set; }
+        [Display(Name = "Cuerpo")]
         public string Body { get; set; }
-        public string Author { get; set; }
-        public int TypeId { get; set; }
-        public Type TypeNavigation { get; set; }
+        public int ArticleTypeId { get; set; }
+        public ArticleType ArticleTypeNavigation { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

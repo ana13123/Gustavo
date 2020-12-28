@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Model;
+using Service;
+using Service.Interface;
 using System;
 
 namespace BlogProyect
@@ -23,8 +25,12 @@ namespace BlogProyect
         {
             services.AddControllersWithViews();
             services.AddMvc();
+
             var sqlConnection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ProfileDbContext>(Options => Options.UseSqlServer(sqlConnection));
+
+            services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IArticleTypeService, ArticleTypeService>();
 
         }
 
