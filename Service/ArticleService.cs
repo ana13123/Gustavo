@@ -11,7 +11,6 @@ namespace Service
 {
     public class ArticleService : IArticleService
     {
-
         private readonly ProfileDbContext _Context;
         public ArticleService(ProfileDbContext context)
         {
@@ -41,7 +40,10 @@ namespace Service
 
         public Article Read(int id)
         {
-            var article = _Context.Articles.Find(id);
+            var article = _Context.Articles
+                .Where(e => e.Id == id)
+                .Include(e => e.ArticleTypeNavigation)
+                .SingleOrDefault();
             return article;
         }
 
@@ -51,7 +53,14 @@ namespace Service
             {
                 return;
             }
-            _Context.Articles.Update(entity);
+
+            Article originalArticle = Read(id);
+
+            originalArticle.Title = entity.Title;
+            originalArticle.Body = entity.Body;
+            originalArticle.ArticleTypeId = entity.ArticleTypeId;
+
+            _Context.Entry(originalArticle).State = EntityState.Modified;
             _Context.SaveChanges();
         }
     }

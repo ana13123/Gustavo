@@ -8,6 +8,7 @@ namespace Service.Interface
     public interface IArticleService
     {
         IList<Article> Read();
+
         Article Read(int id);
 
         Article Create (Article entity);

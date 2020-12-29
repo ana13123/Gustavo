@@ -14,7 +14,6 @@ namespace BlogProyect.Controllers
     {
         private IArticleTypeService _ArticleTypeService; 
         private IArticleService _ArticleService;
-
         public ArticleController(IArticleTypeService articleType, IArticleService articleService)
         {
             _ArticleTypeService = articleType;
@@ -27,17 +26,15 @@ namespace BlogProyect.Controllers
             return View(_ArticleService.Read());
         }
 
-        // GET: ArticleController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Article article = _ArticleService.Read(id);
+            return View(article);
         }
 
-        // GET: ArticleController/Create
         public ActionResult Create()
         {
             var articleTypes = _ArticleTypeService.Read();
-
             var selectListItem = new List<SelectListItem>(
                 articleTypes.Select(
                     e => new SelectListItem { 
@@ -46,7 +43,6 @@ namespace BlogProyect.Controllers
                     }
                 )
             );
-
             ViewBag.ArticleTypes = new SelectList(selectListItem, "Value", "Text");
 
             return View();
@@ -73,40 +69,61 @@ namespace BlogProyect.Controllers
             }
         }
 
-        // GET: ArticleController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Article article = _ArticleService.Read(id);
+            var articleTypes = _ArticleTypeService.Read();
+            var selectListItem = new List<SelectListItem>(
+                articleTypes.Select(
+                    e => new SelectListItem
+                    {
+                        Text = e.Name,
+                        Value = e.Id.ToString()
+                    }
+                )
+            );
+            ViewBag.ArticleTypes = new SelectList(selectListItem, "Value", "Text");
+            return View(article);
         }
 
         // POST: ArticleController/Edit/5
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, 
+            [Bind(new string[] { "Id","Title", "Body", "ArticleTypeId" })] 
+            Article entity
+        )
         {
             try
             {
+                _ArticleService.Update(entity, id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
         }
 
         // POST: ArticleController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
+                _ArticleService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
                 return View();
             }
+        }
+        public ActionResult Delete(int id)
+        {
+            Article article = _ArticleService.Read(id);
+            return View(article);
         }
     }
 }

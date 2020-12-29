@@ -1,36 +1,37 @@
 ﻿@model Model.Domain.Article
-
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Edit";
 }
 <div class="container">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Crear nuevo artículo</h5>
-                    <form class="form-signin" method="post" asp-action="Create">
+                    <h5 class="card-title text-center">Editar artículo</h5>
+                    <form class="form-signin" method="post" asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-label-group">
                             <label asp-for="Title" class="control-label"></label>
                             <input asp-for="Title" class="form-control" />
                             <span asp-validation-for="Title" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
+                        </div><br>
+                        <div class="form-label-group">
                             <label asp-for="Body" class="control-label"></label>
                             <input asp-for="Body" class="form-control" />
                             <span asp-validation-for="Body" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
+                        </div><br>
+                        <div class="form-label-group">
                             <label asp-for="ArticleTypeId" class="control-label"></label>
                             <select asp-for="ArticleTypeId" class="form-control" asp-items="ViewBag.ArticleTypes"></select>
-                        </div>
+                            <span asp-validation-for="ArticleTypeId" class="text-danger"></span>
+                        </div><br>
                         <div class="form-label-group">
                             <label asp-for="CreatedAt" class="control-label"></label>
                             <input asp-for="CreatedAt" class="form-control" />
                             <span asp-validation-for="CreatedAt" class="text-danger"></span>
-                        </div><br>
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Crear</button>
+                        </div><br><br>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Guardar</button>
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" asp-action="Index">Volver</button>
                     </form>
                 </div>

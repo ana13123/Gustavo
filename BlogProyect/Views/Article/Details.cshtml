@@ -1,0 +1,29 @@
+﻿@model Model.Domain.Article
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5">
+            <div>
+                <h1>@Html.DisplayFor(model => model.Title)</h1><br>
+                <p class="col-sm-10">
+                    @Html.DisplayFor(model => model.Body)
+                </p>
+                <p>
+                    @Html.DisplayNameFor(model => model.ArticleTypeNavigation.Name): @Html.DisplayFor(model => model.ArticleTypeNavigation.Name)
+                </p>
+                <p>
+                    @Html.DisplayNameFor(model => model.CreatedAt): @Html.DisplayFor(model => model.CreatedAt)
+                </p>
+            </div>
+            <div>
+                <a class="btn btn-sm btn-primary btn-block text-uppercase" href="/Article/Edit/@Model.Id">Editar</a>
+                <a class="btn btn-sm btn-danger btn-block text-uppercase" href="/Article/Delete/@Model.Id">Eliminar</a>
+                <a class="btn btn-sm btn-primary btn-block text-uppercase" asp-action="Index">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+
